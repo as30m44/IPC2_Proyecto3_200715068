@@ -28,12 +28,14 @@ class Palabra():
   # === impresion en consola ===
   def imprimirEncabezado(self):
     idPalabra_ = "|" + "No".center(8, " ") + "|"
-    termino_ = "TERMINO".center(30, " ") + "|"
     tipo_ = "TIPO".center(8, " ") + "|"
+    termino_ = "TERMINO".center(30, " ") + "|"
+    print(idPalabra_, tipo_, termino_)
 
   def imprimirCelda(self):
     idPalabra_ = "|" + str(self.__idPalabra).center(8, " ") + "|"
-    termino_ = str(self.__termino).center(30, " ") + "|"
     tipo_ = str(self.__tipo).center(8, " ") + "|"
+    termino_ = str(self.__termino).center(30, " ") + "|"
+    print(idPalabra_, tipo_, termino_)
   # === impresion en consola ===
   

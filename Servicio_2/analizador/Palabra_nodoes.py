@@ -9,13 +9,12 @@ class Palabra_nodoES(Nodoenlazadosimple):
   
   def get_palabra(self):
     return self.__palabra
-  # set y get
+  # === set y get ===
 
-  # imprimir en consola
+  # === imprimir en consola ===
   def imprimir(self, tipo):
     if (tipo == "titulo"):
       self.__palabra.imprimirEncabezado()
     else:
       self.__palabra.imprimirCelda()
-  
- 
+  # === imprimir en consola ===

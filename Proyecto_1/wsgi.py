@@ -1,5 +1,5 @@
 """
-WSGI config for Analizador_mensajes project.
+WSGI config for Proyecto_1 project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Analizador_mensajes.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Proyecto_1.settings')
 
 application = get_wsgi_application()

@@ -1,0 +1,33 @@
+1. El programa organiza por fecha los mensajes
+2. Muestra un resumen de los mensajes positivos, negativos y neutros
+3. Lista las empresas 
+	3.1 Total de mensajes
+	3.1 mensajes positivos: p
+	3.2 mensajes negativos: n
+	3.3 mensajes neutros: k es el menor entre p y n, 
+		Empresa A
+		{
+			mensajes = m
+			mensajes positivos = p : cuando num_Pal_Pos > num_Pal_Neg
+			mensajes negativos = n : cuando num_Pal_Pos < num_Pal_Neg
+			mensajes neutros = k: cuando num_Pal_Pos == num_Pal_Neg
+		}
+	3.4 Lista de servicio de la empresa
+		Servicios a de la Empresa A
+		{
+			mensajes = m
+			mensajes positivos = p : cuando num_Pal_Pos > num_Pal_Neg
+			mensajes negativos = n : cuando num_Pal_Pos < num_Pal_Neg
+			mensajes neutros = k: cuando num_Pal_Pos == num_Pal_Neg
+		}
+
+
+Para analizar los mensajes es requerido un analizador semántico, pero como no sé debo pensar en alguna solución para palear este problema.
+
+El archivo de respuesta no indica si el resumen será por usuario, red social, únicamente indica que es por empresa, pero no se entiende si es una cuenta global o por mensaje. Yo la voy a tomar por mensaje por que se supone que la premisa es "establecer si un mensaje tiene un sentimiento positivo, negativo o neutro". Para cada mensaje se describe las empresas mencionadas, los servicios y el análisis.
+
+Alfabeto
+{
+	palabras_reservadas = {lugar, y, fecha, usuario, red, social, }
+}
+
