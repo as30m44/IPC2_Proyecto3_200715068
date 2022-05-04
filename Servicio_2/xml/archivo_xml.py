@@ -1,55 +1,179 @@
+import re
 import xml.etree.ElementTree as ET
 import os
+
 from analizador.Palabra_listaes import Palabra_listaES
+from analizador.Palabra import Palabra
 
 class ArchivoXML():
   __listaArchivosXML = []
   __mensajes = Palabra_listaES()
   __diccionario = Palabra_listaES()
-  # ************************************************************************************************
-  # constructor 
+  __servicios = Palabra_listaES()
+  __alias = Palabra_listaES()
+
   def __init__(self, nombreCarpeta):
     carpeta = nombreCarpeta + "/"
     listaArchivos = os.listdir(carpeta) # muestra la lista de todos los archivos XML en la carpeta
+    # ______________________________________________________________________________________________
     # Agregar todos los archivos con extensión XML en un arreglo
     for archivoXML in listaArchivos:
       if (os.path.isfile(os.path.join(carpeta, archivoXML)) and archivoXML.endswith(".xml")):
         self.__listaArchivosXML.append(carpeta + archivoXML)
-  # ************************************************************************************************
-  # agrega la lista de palabras en el archivo xml 
-  def get_diccionario(self):
-    # palabras definidas
-    terminos = ["lugar", "y", "fecha", "usuario", "red", "social"]
-    tipos = [10, 11, 12, 20, 30, 31]
-    for mensaje in range(1, len()):
-      pass
+    # ______________________________________________________________________________________________
+    self.__crearDiccionario()
 
-    idCiudad = 0
-    nombre = ""
-    noColumnas = 0
-    noFilas = 0
-    # Atributos del objeto Fila()
-    estado = ""
-    # Atributos dl objeto UnidadMilitar()
-    posicion_X = 0
-    posicion_Y = 0
-    capacidadCombate = 0
-    # **********************************************************************************************
+  # ************************************************************************************************
+  # creación del diccionario 
+  def __crearDiccionario(self):
+    terminos = {"es_fecha": 1, "es_hora": 2, "es_palabra":3 , "coma": 4, "punto": 5, "dos_puntos": 6, "lugar": 10, "y": 11, "fecha": 12, "usuario": 20 , "red": 30, "social": 31}
+    for termino in terminos:
+      palabra_i = Palabra()
+      tipo = terminos[termino]
+      palabra_i.set_termino(palabra_i)
+      palabra_i.set_tipo(tipo)
+      self.__diccionario.insertar(palabra_i)
+  
+  # ************************************************************************************************
+  # agrega las palabras al diccionario 
+  def actualizarDiccionario(self):
+    # ______________________________________________________________________________________________
     # lee el contenido de cada archivo XML
     for archivoXML in self.__listaArchivosXML:
       arbol = ET.parse(archivoXML)
-      raiz = arbol.getroot() # raiz[0] es <listaCiudades>
-      # recorre el contenido dentro de las etiquetas <listaCiudades>
-      for nivel_2 in raiz[0]: # nivel_2 es <ciudad>
-        ciudad = Ciudad()
-        listaFilas = Fila_listaES()
-        listaUnidadesMilitares = UnidadMilitar_listaES()
-        ciudad_i = 0
-        filas_i = 0
-        unidadesMilitares_i = 0
-        # ----------------------------------------------------------------------------------------------
+      # para etiqueta <diccionario> y <lista_mensajes>
+      raiz = arbol.getroot()
+      # ............................................................................................
+      # en <diccionario> etiqueta: <sentimientos_positivos> <sentimientos_negativos> y <empresas_analizar>
+      for nivel_2 in raiz[0]:
+        contadorPalPos = 100
+        contadorPalNeg = -100
+        contadorEmpresa = 200
+        # ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+        # para etiqueta <palabra> y <empresa>
+        for nivel_3 in nivel_2:
+          # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+          if (nivel_2.tag == "sentimientos_positivos"):
+            palabra_i = Palabra()
+            palabra_i.set_termino = self.__normalizarPalabra(nivel_3.text)
+            palabra_i.set_tipo = contadorPalPos
+            self.__diccionario.insertar(palabra_i)
+          elif (nivel_2.tag == "sentimientos_negativos"):
+            palabra_i = Palabra()
+            palabra_i.set_termino = self.__normalizarPalabra(nivel_3.text)
+            palabra_i.set_tipo = contadorPalNeg
+            self.__diccionario.insertar(palabra_i)
+          elif (nivel_2.tag == "empresas_analizar"):
+            # ......................................................................................
+            # para etiqueta <nombre> y <servicio>
+            for nivel_4 in nivel_3:
+              if (nivel_4.tag == "nombre"):
+                palabra_i = Palabra()
+                palabra_i.set_termino = self.__normalizarPalabra(nivel_4.text)
+                palabra_i.set_tipo = contadorEmpresa
+                self.__diccionario.insertar(palabra_i)
+                contadorEmpresa += 1
+              elif (nivel_4.tag == "servicio"):
+                palabra_i = Palabra()
+                palabra_i.set_termino = nivel_4.attrib.get("nombre")
+                palabra_i.set_tipo = contadorEmpresa - 1
+                self.__servicios.insertar(palabra_i)
+                # __________________________________________________________________________________
+                # para etiqueta <alias>
+                for nivel_5 in nivel_4:
+                  palabra_i = Palabra()
+                  palabra_i.set_termino = self.__normalizarPalabra(nivel_5.text)
+                  palabra_i.set_tipo = contadorEmpresa - 1
+                  self.__alias.insertar(palabra_i)
+                # __________________________________________________________________________________
+            # ......................................................................................
+          # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+          contadorPalPos += 1
+          contadorPalNeg -= 1
+        # ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+      # ............................................................................................
+    # ______________________________________________________________________________________________
+
+  # ************************************************************************************************
+  def __desglosarMensajexPalabras(self):
+    # ______________________________________________________________________________________________
+    # lee el contenido de cada archivo XML
+    for archivoXML in self.__listaArchivosXML:
+      arbol = ET.parse(archivoXML)
+      # para etiqueta <diccionario> y <lista_mensajes>
+      raiz = arbol.getroot()
+      # ............................................................................................
+      # en <lista_mensajes> etiqueta: <mensaje>
+      for nivel_2 in raiz[1]:
+        mensaje = ""
+        palabra_i = ""
+        # ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+        if (nivel_2.tag == "mensaje"):
+          mensaje = nivel_2.text
+          mensaje.lower()
+          # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+          # recorre letra por letra cada mensaje
+          for indice in range(len(mensaje)):
+            caracter = mensaje[indice]
+            # ......................................................................................
+            if (self.__esCaracterEspecial(caracter)):
+              pass
+            else:
+              
+            # ......................................................................................
+          # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        # ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    # ______________________________________________________________________________________________
+
+  # ************************************************************************************************
+  def __normalizarPalabra(self, palabra):
+    palabra = str(palabra).lower()
+    vocales = (
+      ("á", "a"),
+      ("é", "e"),
+      ("í", "i"),
+      ("ó", "o"),
+      ("ú", "u"),
+    )
+    # ______________________________________________________________________________________________
+    for a, b in vocales:
+      palabra = palabra.replace(a, b)
+    # ______________________________________________________________________________________________
+    return palabra
+
+  # ************************************************************************************************
+  def __normarlizarCaracter(self, caracter):
+    caracter = str(caracter).lower()
+    # ______________________________________________________________________________________________
+    if (caracter == "á"):
+      caracter = "a"
+    elif (caracter == "é"):
+      caracter = "e"
+    elif (caracter == "í"):
+      caracter = "i"
+    elif (caracter == "ó"):
+      caracter = "o"
+    elif (caracter == "ú"):
+      caracter = "u"
+    # ______________________________________________________________________________________________
+    return caracter
+
+  # ************************************************************************************************
+  def __esCaracterEspecial(self, caracter):
+    encontrado = False
+    # ______________________________________________________________________________________________
+    if (caracter == " "): # espacio
+      encontrado = True
+    elif (caracter == "\n"): # salto de línea
+      encontrado = True
+    elif (caracter == "\t"): # tabulador
+      encontrado = True
+    # ______________________________________________________________________________________________
+
+  # ************************************************************************************************
+
+    return encontrado
         # recorre el contenido dentro de las etiquetas <ciudad>
-        for nivel_3 in nivel_2: # nivel_3 es <nombre>, <fila> y <unidadMilitar>
           # creación de objetos
           fila = Fila()
           unidadMilitar = UnidadMilitar()
@@ -245,13 +369,18 @@ class ArchivoXML():
               # caso 1.2.2: cuando está la ciudad en la lista
               else:
                 self.__listaRobotsRescate.modificarRobot(robot)
-
+  # ************************************************************************************************
+  # desglosar el mensaje en palabras
 
   def imprimirListaXML(self):
     contador = 1
     for archivo in self.__listaArchivosXML:
       print(str(contador) + "." + archivo)
       contador += 1
-
+      
+  # ************************************************************************************************
+  # área de pruebas
+  def main(self):
+    
 if '__name__' == '__main__':
   print("hola mundo")

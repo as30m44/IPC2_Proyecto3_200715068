@@ -5,18 +5,20 @@ class Palabra_listaES():
   __nodoFinal = None # Mensaje_nodoES()
   __nodoActual = None # Mensaje_nodoES()
   __noMensajes = 0
-  # === set y get ===
+  
   def __init__(self):
     pass
 
+  # ************************************************************************************************
+  # métodos get
   def get_noMensajes(self):
     return self.__noMensajes
 
   def get_mensaje(self):
     return self.__nodoActual.get_mensaje()
-  # === set y get ===
 
-  # === modificar lista ===
+  # ************************************************************************************************
+  # modificación lista
   def estaVacio(self):
     return self.__nodoInicio == None and self.__nodoFinal == None
 
@@ -33,4 +35,3 @@ class Palabra_listaES():
       self.__nodoFinal.set_siguiente(nodoNuevo)
       self.__nodoFinal = nodoNuevo 
     self.__noMensajes += 1
-  # === modificar lista ===

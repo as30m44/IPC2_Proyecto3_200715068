@@ -5,18 +5,20 @@ class Palabra_listaES():
   __nodoFinal = None # Contenido_nodoES()
   __nodoActual = None # Contenido_nodoES()
   __noPalabras = 0
-  # === set y get ===
+  
   def __init__(self):
     pass
 
+  # ************************************************************************************************
+  # métodos get
   def get_noPalabras(self):
     return self.__noPalabras
 
   def get_palabra(self):
     return self.__nodoActual.get_palabra()
-  # === set y get ===
 
-  # === modificar lista ===
+  # ************************************************************************************************
+  # modificación de listas
   def estaVacio(self):
     return self.__nodoInicio == None and self.__nodoFinal == None
 
@@ -33,4 +35,3 @@ class Palabra_listaES():
       self.__nodoFinal.set_siguiente(nodoNuevo)
       self.__nodoFinal = nodoNuevo 
     self.__noPalabras += 1
-  # === modificar lista ===

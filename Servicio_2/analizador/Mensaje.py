@@ -10,10 +10,12 @@ class Mensaje():
   __redSocial = ""
   __palabrasPositivas = Palabra_listaES()
   __palabrasNegativas = Palabra_listaES()
-  # === set y get ===
+
   def __init__(self):
     pass
 
+  # ************************************************************************************************
+  # métodos set
   def set_idMensaje(self, idMensaje):
     self.__idMensaje = idMensaje
     
@@ -41,6 +43,8 @@ class Mensaje():
   def set_palabrasNegativas(self, palabrasNegativas):
     self.__palabrasNegativas = palabrasNegativas
 
+  # ************************************************************************************************
+  # métodos set
   def get_idMensaje(self):
     return self.__idMensaje
 
@@ -67,9 +71,9 @@ class Mensaje():
 
   def get_palabrasNegativas(self):
     return self.__palabrasNegativas
-  # === set y get ===
 
-  # === impresion en consola ===
+  # ************************************************************************************************
+  # impresión de datos
   def imprimirEncabezado(self):
     idMensaje_ = "|" + "No".center(8, " ") + "|"
     tipo_ = "TIPO".center(30, " ") + "|"
@@ -90,4 +94,3 @@ class Mensaje():
     usuario_ = str(self.__usuario).center(8, " ") + "|"
     redSocial_ = str(self.__redSocial).center(8, " ") + "|"
     print(idMensaje_, tipo_, lugar_, fecha_, hora_, usuario_, redSocial_)
-  # === impresion en consola ===

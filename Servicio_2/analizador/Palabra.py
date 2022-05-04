@@ -2,10 +2,11 @@ class Palabra():
   __idPalabra = 0
   __termino = ""
   __tipo = 0
-  # === set y get ===
   def __init__(self):
     pass
 
+  # ************************************************************************************************
+  # métodos set
   def set_idPalabra(self, idPalabra):
     self.__idPalabra = idPalabra
 
@@ -14,7 +15,9 @@ class Palabra():
 
   def set_tipo(self, tipo):
     self.__tipo = tipo
-
+    
+  # ************************************************************************************************
+  # métodos get
   def get_idPalabra(self):
     return self.__idPalabra
 
@@ -23,9 +26,9 @@ class Palabra():
 
   def get_tipo(self):
     return self.__tipo
-  # === de set y get ===
 
-  # === impresion en consola ===
+  # ************************************************************************************************
+  # impresion de datos
   def imprimirEncabezado(self):
     idPalabra_ = "|" + "No".center(8, " ") + "|"
     tipo_ = "TIPO".center(8, " ") + "|"
@@ -37,5 +40,3 @@ class Palabra():
     tipo_ = str(self.__tipo).center(8, " ") + "|"
     termino_ = str(self.__termino).center(30, " ") + "|"
     print(idPalabra_, tipo_, termino_)
-  # === impresion en consola ===
-  
