@@ -1,3 +1,5 @@
+from logica.archivo_xml import Archivo_XML
+
 from xml.etree.ElementTree import XMLParser
 from datetime import datetime
 
@@ -7,6 +9,7 @@ from flask import Flask, render_template
 # from werkzeug.datastructures import FileStorage
 from werkzeug.utils import secure_filename
 import os
+
 # from requests import request
 # **************************************************************************************************
 # Clase de ejemplo
@@ -18,7 +21,7 @@ class Persona():
 
 app = Flask(__name__)
 # *************************************************************************
-app.config['UPLOAD_FOLDER'] = 'D:/Documentos/Programacion/22S1IPC2/Proyecto_3/IPC2_Proyecto3_200715068/Servicio_2/xml/archivos'
+app.config['UPLOAD_FOLDER'] = 'D:/Documentos/Programacion/22S1IPC2/Proyecto_3/IPC2_Proyecto3_200715068/Servicio_2/archivos'
 # app.config['MAX_CONTENT_PATH']
 # *************************************************************************
 

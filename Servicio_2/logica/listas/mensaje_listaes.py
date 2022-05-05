@@ -1,31 +1,31 @@
-from Palabra_nodoes import Palabra_nodoES
+from logica.listas.mensaje_nodoes import Mensaje_nodoES
 
 class Palabra_listaES():
-  __nodoInicio = None # Contenido_nodoES()
-  __nodoFinal = None # Contenido_nodoES()
-  __nodoActual = None # Contenido_nodoES()
-  __noPalabras = 0
+  __nodoInicio = None # Mensaje_nodoES()
+  __nodoFinal = None # Mensaje_nodoES()
+  __nodoActual = None # Mensaje_nodoES()
+  __noMensajes = 0
   
   def __init__(self):
     pass
 
   # ************************************************************************************************
   # métodos get
-  def get_noPalabras(self):
-    return self.__noPalabras
+  def get_noMensajes(self):
+    return self.__noMensajes
 
-  def get_palabra(self):
-    return self.__nodoActual.get_palabra()
+  def get_mensaje(self):
+    return self.__nodoActual.get_mensaje()
 
   # ************************************************************************************************
-  # modificación de listas
+  # modificación lista
   def estaVacio(self):
     return self.__nodoInicio == None and self.__nodoFinal == None
 
-  def insertar(self, palabra):
-    palabra.set_idPalabra(self.__noPalabras + 1)
-    nodoNuevo = Palabra_nodoES()
-    nodoNuevo.set_palabra(palabra)
+  def insertar(self, mensaje):
+    mensaje.set_idMensaje(self.__noMensajes + 1)
+    nodoNuevo = Mensaje_nodoES()
+    nodoNuevo.set_mensaje(mensaje)
     # 1: lista vacía
     if (self.estaVacio()):
       self.__nodoInicio = nodoNuevo
@@ -34,4 +34,4 @@ class Palabra_listaES():
     else:
       self.__nodoFinal.set_siguiente(nodoNuevo)
       self.__nodoFinal = nodoNuevo 
-    self.__noPalabras += 1
+    self.__noMensajes += 1

@@ -1,23 +1,23 @@
-from Nodoenlazadosimple import Nodoenlazadosimple 
-from Mensaje import Mensaje
+from logica.listas.nodoenlazadosimple import NodoEnlazadoSimple 
+from logica.listas.palabra import Palabra
 
-class Mensaje_nodoES(Nodoenlazadosimple):
-  __mensaje = None # Palabra()
+class Palabra_nodoES(NodoEnlazadoSimple):
+  __palabra = None # Palabra()
 
   # ************************************************************************************************
   # métodos set
-  def set_mensaje(self, mensaje):
-    self.__mensaje = mensaje
+  def set_palabra(self, palabra):
+    self.__palabra = palabra
   
   # ************************************************************************************************
   # métodos get
-  def get_mensaje(self):
-    return self.__mensaje
+  def get_palabra(self):
+    return self.__palabra
 
   # ************************************************************************************************
   # impresión de datos
   def imprimir(self, tipo):
     if (tipo == "titulo"):
-      self.__mensaje.imprimirEncabezado()
+      self.__palabra.imprimirEncabezado()
     else:
-      self.__mensaje.imprimirCelda()
+      self.__palabra.imprimirCelda()

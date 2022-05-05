@@ -1,4 +1,4 @@
-from Palabra_listaes import Palabra_listaES
+from logica.listas.palabra_listaes import Palabra_listaES
 
 class Mensaje():
   __idMensaje = 0
