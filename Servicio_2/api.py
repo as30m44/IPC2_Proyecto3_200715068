@@ -1,13 +1,11 @@
-from logica.archivo_xml import Archivo_XML
-
-from xml.etree.ElementTree import XMLParser
-from datetime import datetime
+from archivo_xml import Archivo_XML
 
 from flask import Flask, Response, request
 from flask import Flask, render_template
 # import xmltodict
 # from werkzeug.datastructures import FileStorage
 from werkzeug.utils import secure_filename
+from pathlib import Path
 import os
 
 # from requests import request
@@ -64,23 +62,34 @@ def upload_file():
   # diccionario = XMLParser(resultado)
   # print(diccionario) #print(resultado[15])
   
-  # f = request.files['file']
-  # resultado = (f.stream.readlines())
+  # ________________________________________________________________________________________________
+  f = request.files['file']
+  resultado = (f.stream.readlines())
   
-  archivo = request.files['file']
-  archivoNombre = secure_filename(archivo.filename)
-  archivo.save(os.path.join(app.config['UPLOAD_FOLDER'], archivoNombre))
-  print(type(posts))
-  resultado = archivo.stream.readlines()
+  # ________________________________________________________________________________________________
+  # archivo = request.files['file']
+  # archivoNombre = secure_filename(archivo.filename)
+  # archivo.save(os.path.join(app.config['UPLOAD_FOLDER'], archivoNombre))
+  # print(type(posts))
+  # resultado = archivo.stream.readlines()
+  # ________________________________________________________________________________________________
   # return 'file uploaded successfully'
   if request.method == 'POST':
     print("petición POST") # el formulario lo define como post
   else:
     print("petición GET")
-  # return Response(resultado, mimetype='text/xml')
+  
+  BASE_DIR = Path(__file__).resolve().parent.parent
+  print(os.path.join(BASE_DIR, 'Servicio_2\\archivos'))
+  archvoXML = Archivo_XML(os.path.join(BASE_DIR, 'Servicio_2\\archivos'))
+  archvoXML.actualizarDiccionario()
+  archvoXML.main()
+  
+  return Response(resultado, mimetype='text/xml')
+
   # ________________________________________________________________________________________________
   # respuesta de ejemplo
-  return render_template("index.html", title = 'Home', user = user, posts = posts)
+  # return render_template("index.html", title = 'Home', user = user, posts = posts)
 
 # **************************************************************************************************
 # Ejecución de la api

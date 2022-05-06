@@ -26,15 +26,6 @@ class Archivo_XML():
     # ______________________________________________________________________________________________
     self.__crearDiccionario()
 
-  def imprimir(self):
-    self.__diccionario.imprimir()
-    print("\n")
-    self.__desglosarMensajexPalabras()
-    self.__listaPalabras.imprimir()
-    print("\n")
-    self.__clasificarMensajes()
-    self.__mensajes.imprimir()
-    print("\n")
   # ************************************************************************************************
   # creación del diccionario 
   def __crearDiccionario(self):
@@ -451,22 +442,27 @@ class Archivo_XML():
     # ______________________________________________________________________________________________
 
   # ************************************************************************************************
-  # desglosar el mensaje en palabras
-
-  def imprimirListaXML(self):
-    contador = 1
-    for archivo in self.__listaArchivosXML:
-      print(str(contador) + "." + archivo)
-      contador += 1
-      
-  # ************************************************************************************************
-  # área de pruebas
-  # def main(self):
-    
+  # MAIN
+  def main(self):
+    print("=".ljust(80, "="))
+    print("DICCIONARIO")
+    self.__diccionario.imprimir()
+    print("\n")
+    print("=".ljust(80, "="))
+    print("DESGOLOSE DE MENSAJES")
+    self.__desglosarMensajexPalabras()
+    self.__listaPalabras.imprimir()
+    print("\n")
+    print("=".ljust(80, "="))
+    print("CLASIFICACIÓN DE MENSAJES")
+    self.__clasificarMensajes()
+    self.__mensajes.imprimir()
+    print("\n")
+        
 if __name__ == '__main__':
   BASE_DIR = Path(__file__).resolve().parent.parent
   print(os.path.join(BASE_DIR, 'Servicio_2\\archivos'))
   archvoXML = Archivo_XML(os.path.join(BASE_DIR, 'Servicio_2\\archivos'))
   archvoXML.actualizarDiccionario()
-  archvoXML.imprimir()
+  archvoXML.main()
   
