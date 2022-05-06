@@ -32,8 +32,8 @@ class Archivo_XML():
     self.__desglosarMensajexPalabras()
     self.__listaPalabras.imprimir()
     print("\n")
-    # self.__clasificarMensajes()
-    # self.__mensajes.imprimir()
+    self.__clasificarMensajes()
+    self.__mensajes.imprimir()
     print("\n")
   # ************************************************************************************************
   # creación del diccionario 
@@ -366,6 +366,8 @@ class Archivo_XML():
     hora = ""
     usuario = ""
     redSocial = ""
+    noPalabrasPositivas = 0
+    noPalabrasNegativas = 0
     # ______________________________________________________________________________________________
     while (idPalabra <= noPalabras):
       self.__listaPalabras.moverPuntero(idPalabra)
@@ -374,13 +376,13 @@ class Archivo_XML():
       # ............................................................................................
       if (tipo == 0):
         mensaje_i = Mensaje()
-        palabrasPositivas = Palabra_listaES()
-        palabrasNegativas = Palabra_listaES()
         mensaje_i.set_lugar(lugar)
         mensaje_i.set_fecha(fecha)
         mensaje_i.set_hora(hora)
         mensaje_i.set_usuario(usuario)
         mensaje_i.set_redSocial(redSocial)
+        mensaje_i.set_noPalabrasPositivas(noPalabrasPositivas)
+        mensaje_i.set_noPalabrasNegativas(noPalabrasNegativas)
         self.__mensajes.insertar(mensaje_i)
       # ............................................................................................
       else:
@@ -398,8 +400,12 @@ class Archivo_XML():
             estado = 21
           elif (tipo == 30): # RED
             estado = 31
-          elif (100 <= tipo and tipo < 1000): # palabras_positivas y palabras_negativas
-            estado = 100
+          elif (100 <= tipo and tipo < 1000): # palabras_positivas 
+            noPalabrasPositivas += 1
+            estado = 0
+          elif (-1000 < tipo and tipo <= -100): #  palabras_negativas
+            noPalabrasNegativas += 1
+            estado = 0
         # ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
         elif (estado == 11): # Y
           if (tipo == 11):
@@ -419,8 +425,9 @@ class Archivo_XML():
             cadena += (termino + " ")
           else:
             lugar = cadena
+            cadena = ""
             idPalabra -= 1
-            estado == 0
+            estado = 0
         # ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
         elif (estado == 21): # as30m44
           if (tipo == 21):
@@ -435,15 +442,12 @@ class Archivo_XML():
           if (tipo == 3):
             redSocial = termino
             estado = 0
-        # ............................................................................................
-        elif (estado == 100):
-          if (tipo > 0): # palabras_positivas
+        # # ............................................................................................
+        elif (estado == 100): # palabras_positivas
+          if (tipo > 0): 
             pass
       # ............................................................................................
       idPalabra += 1
-      print(idPalabra)
-      print(termino)
-      print(estado)
     # ______________________________________________________________________________________________
 
   # ************************************************************************************************
@@ -465,36 +469,4 @@ if __name__ == '__main__':
   archvoXML = Archivo_XML(os.path.join(BASE_DIR, 'Servicio_2\\archivos'))
   archvoXML.actualizarDiccionario()
   archvoXML.imprimir()
-
-import re
-cadena = "Vamos a aprender expresiones regulares en Python. Python es un leguaje de sintaxis sencilla."
-textoBuscar = "aprender"
-textoEncontrado = re.search(textoBuscar, cadena)
-print(textoEncontrado.start()) #8
-print(textoEncontrado.end()) #16
-print(textoEncontrado.span()) #(8,16)
-
-textoBuscar = "Python"
-print(re.findall(textoBuscar, cadena)) #['Python', 'Python']
-
-lista_nombres = [
-  'Ana Gómez', 
-  'María Martín',
-  'Sandra López',
-  'Santiago Martín',
-  'Sandra Fernández'
-  ]
-
-for nombre in lista_nombres:
-  if (re.findall('^Sandra', nombre)): #inicio con Sandra
-    print(nombre)
-  if (re.findall('Martín$', nombre)): #finalice con Martín
-    print(nombre)
-
-    'niñ[oa]'
-    'niñ[^oa]' #neagcion
-    '[0-3A-B]'
-    '[0-3A-B]'
-    
-    'camión'
-    'camion'
+  

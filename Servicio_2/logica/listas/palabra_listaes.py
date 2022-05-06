@@ -38,7 +38,7 @@ class Palabra_listaES():
       # ............................................................................................
       # caso 1: el id se encuentra dentro de la lista
       if (encontrado == False):
-        print("LISTA PALABRAS: no se encuentra el término que ha ingresado")
+        # print("LISTA PALABRAS: no se encuentra el término que ha ingresado")
         tipo_i = 3
       return tipo_i
     # ______________________________________________________________________________________________

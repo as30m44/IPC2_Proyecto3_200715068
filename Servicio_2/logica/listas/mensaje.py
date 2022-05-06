@@ -8,8 +8,8 @@ class Mensaje():
   __hora = ""
   __usuario = ""
   __redSocial = ""
-  __palabrasPositivas = Palabra_listaES()
-  __palabrasNegativas = Palabra_listaES()
+  __noPalabrasPositivas = 0
+  __noPalabrasNegativas = 0
 
   def __init__(self):
     pass
@@ -37,11 +37,11 @@ class Mensaje():
   def set_redSocial(self, redSocial):
     self.__redSocial = redSocial
 
-  def set_palabrasPositivas(self, palabrasPositivas):
-    self.__palabrasPositivas = palabrasPositivas
+  def set_noPalabrasPositivas(self, noPalabrasPositivas):
+    self.__noPalabrasPositivas = noPalabrasPositivas
 
-  def set_palabrasNegativas(self, palabrasNegativas):
-    self.__palabrasNegativas = palabrasNegativas
+  def set_noPalabrasNegativas(self, noPalabrasNegativas):
+    self.__noPalabrasNegativas = noPalabrasNegativas
 
   # ************************************************************************************************
   # métodos set
@@ -66,30 +66,34 @@ class Mensaje():
   def get_redSocial(self):
     return self.__redSocial
 
-  def get_palabrasPositivas(self):
-    return self.__palabrasPositivas
+  def get_noPalabrasPositivas(self):
+    return self.__noPalabrasPositivas
 
-  def get_palabrasNegativas(self):
-    return self.__palabrasNegativas
+  def get_noPalabrasNegativas(self):
+    return self.__noPalabrasNegativas
 
   # ************************************************************************************************
   # impresión de datos
   def imprimirEncabezado(self):
     idMensaje_ = "|" + "No".center(8, " ") + "|"
     tipo_ = "TIPO".center(8, " ") + "|"
-    lugar_ = "LUGAR".center(8, " ") + "|"
-    fecha_ = "FECHA".center(8, " ") + "|"
+    lugar_ = "LUGAR".center(16, " ") + "|"
+    fecha_ = "FECHA".center(16, " ") + "|"
     hora_ = "HORA".center(8, " ") + "|"
-    usuario_ = "USUARIO".center(8, " ") + "|"
-    redSocial_ = "RED SOCIAL".center(8, " ") + "|"
-    print(idMensaje_, tipo_, lugar_, fecha_, hora_, usuario_, redSocial_)
+    usuario_ = "USUARIO".center(16, " ") + "|"
+    redSocial_ = "RED SOCIAL".center(16, " ") + "|"
+    positivo_ = "POSITIVO".center(8 , " ") + "|"
+    negativo_ = "NEGATIVO".center(8 , " ") + "|"
+    print(idMensaje_, tipo_, lugar_, fecha_, hora_, usuario_, redSocial_, positivo_, negativo_)
 
   def imprimirCelda(self):
     idMensaje_ = "|" + str(self.__idMensaje).center(8, " ") + "|"
     tipo_ = str(self.__tipo).center(8, " ") + "|"
-    lugar_ = str(self.__lugar).center(8, " ") + "|"
-    fecha_ = str(self.__fecha).center(8, " ") + "|"
+    lugar_ = str(self.__lugar).center(16, " ") + "|"
+    fecha_ = str(self.__fecha).center(16, " ") + "|"
     hora_ = str(self.__hora).center(8, " ") + "|"
-    usuario_ = str(self.__usuario).center(8, " ") + "|"
-    redSocial_ = str(self.__redSocial).center(8, " ") + "|"
-    print(idMensaje_, tipo_, lugar_, fecha_, hora_, usuario_, redSocial_)
+    usuario_ = str(self.__usuario).center(16, " ") + "|"
+    redSocial_ = str(self.__redSocial).center(16, " ") + "|"
+    positivo_ = str(self.__noPalabrasPositivas).center(8, " ") + "|"
+    negativo_ = str(self.__noPalabrasNegativas).center(8, " ") + "|"
+    print(idMensaje_, tipo_, lugar_, fecha_, hora_, usuario_, redSocial_, positivo_, negativo_)
