@@ -5,6 +5,7 @@ class Validacion():
 
   # ************************************************************************************************
   def normalizarPalabra(self, palabra):
+    termino = ""
     palabra = str(palabra).lower()
     vocales = (
       ("á", "a"),
@@ -17,8 +18,28 @@ class Validacion():
     for a, b in vocales:
       palabra = palabra.replace(a, b)
     # ______________________________________________________________________________________________
-    palabra = palabra.replace(" ", "")
-    return palabra
+    estado = 0
+    termino = ""
+    # ______________________________________________________________________________________________
+    for indice in range(len(palabra)):
+      caracter = palabra[indice]
+      # ............................................................................................
+      if (estado == 0):
+        if (self.esDelimitador(caracter)):
+          estado = 0
+        else:
+          termino += caracter
+          estado = 1
+      # ............................................................................................
+      elif (estado == 1):
+        if (self.esDelimitador(caracter)):
+          estado = -1
+        else:
+          termino += caracter
+          estado = 1
+      # ............................................................................................
+    # ______________________________________________________________________________________________
+    return termino
 
   # ************************************************************************************************
   def normarlizarCaracter(self, caracter):

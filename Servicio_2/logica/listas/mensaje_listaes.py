@@ -1,6 +1,6 @@
 from logica.listas.mensaje_nodoes import Mensaje_nodoES
 
-class Palabra_listaES():
+class Mensaje_listaES():
   __nodoInicio = None # Mensaje_nodoES()
   __nodoFinal = None # Mensaje_nodoES()
   __nodoActual = None # Mensaje_nodoES()
@@ -35,3 +35,15 @@ class Palabra_listaES():
       self.__nodoFinal.set_siguiente(nodoNuevo)
       self.__nodoFinal = nodoNuevo 
     self.__noMensajes += 1
+
+  # ************************************************************************************************
+  # imprimir
+  def imprimir(self):
+    if (self.estaVacio()):
+      print("LISTA PALABRAS: la lista esta vacía")
+    else:
+      nodo_m = self.__nodoInicio
+      nodo_m.imprimir("titulo")
+      while (nodo_m != None):
+        nodo_m.imprimir("celda")
+        nodo_m = nodo_m.get_siguiente()

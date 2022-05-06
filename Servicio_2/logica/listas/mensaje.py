@@ -76,7 +76,7 @@ class Mensaje():
   # impresión de datos
   def imprimirEncabezado(self):
     idMensaje_ = "|" + "No".center(8, " ") + "|"
-    tipo_ = "TIPO".center(30, " ") + "|"
+    tipo_ = "TIPO".center(8, " ") + "|"
     lugar_ = "LUGAR".center(8, " ") + "|"
     fecha_ = "FECHA".center(8, " ") + "|"
     hora_ = "HORA".center(8, " ") + "|"
@@ -85,8 +85,7 @@ class Mensaje():
     print(idMensaje_, tipo_, lugar_, fecha_, hora_, usuario_, redSocial_)
 
   def imprimirCelda(self):
-    idMensaje_ = "|" + str(self.__idPalabra).center(8, " ") + "|"
-    termino_ = str(self.__termino).center(30, " ") + "|"
+    idMensaje_ = "|" + str(self.__idMensaje).center(8, " ") + "|"
     tipo_ = str(self.__tipo).center(8, " ") + "|"
     lugar_ = str(self.__lugar).center(8, " ") + "|"
     fecha_ = str(self.__fecha).center(8, " ") + "|"

@@ -17,8 +17,8 @@ class Palabra_listaES():
   def get_palabra(self):
     return self.__nodoActual.get_palabra()
 
-  # buscar tipo de palabra
-  def get_tipo(self, termino):
+  # buscar tipo por palabra ingresada
+  def get_tipoxTermino(self, termino):
     # ______________________________________________________________________________________________
     if (self.estaVacio()):
       print("LISTA PALABRAS: la lista está vacía")
@@ -26,6 +26,7 @@ class Palabra_listaES():
     else:
       self.__nodoActual = self.__nodoInicio
       encontrado = False
+      tipo_i = 3
       # ............................................................................................
       while (encontrado == False and self.__nodoActual != None):
         termino_i = self.__nodoActual.get_palabra().get_termino()
@@ -41,7 +42,36 @@ class Palabra_listaES():
         tipo_i = 3
       return tipo_i
     # ______________________________________________________________________________________________
-    
+
+  # ************************************************************************************************
+  # mueve el puntero a un nodo utilizando el idPalabra
+  def moverPuntero(self, idPalabra):
+    # ______________________________________________________________________________________________
+    if (self.estaVacio()):
+      print("LISTA PALABRAS: la lista está vacía")
+    # ______________________________________________________________________________________________
+    else:
+      # caso 1: el id se encuentra dentro de la lista
+      self.__nodoActual = self.__nodoInicio
+      nodoPos_i = 1
+      encontrado = False
+      # ............................................................................................
+      if (idPalabra <= self.__noPalabras):
+        while (encontrado == False):
+          if (nodoPos_i == idPalabra):
+            encontrado = True
+          else:
+            nodoPos_i += 1
+            self.__nodoActual = self.__nodoActual.get_siguiente()
+      # ............................................................................................
+      # caso 2: el id no está en la lista
+      else:
+        print("LISTA PALABRAS: no se encuentra el tipo que ha ingresado")
+        self.__nodoActual = self.__nodoInicio
+      # ............................................................................................
+    # ______________________________________________________________________________________________
+
+        
   # ************************************************************************************************
   # modificación de listas
   def estaVacio(self):
